@@ -29,12 +29,42 @@ def Decode(word):
     return encoded
 
 def main():
+    # successful test
+
     mng = OrderManager()
     res = mng.ReadproductcodefromJSON("test.json")
     strRes = res.__str__()
     print(strRes)
     EncodeRes = Encode(strRes)
-    print("Encoded Res "+ EncodeRes)
+    print("Encoded Res " + EncodeRes)
+    DecodeRes = Decode(EncodeRes)
+    print("Decoded Res: " + DecodeRes)
+    print("Codew: " + res.PRODUCT_CODE)
+    with open("./barcodeEan13.jpg", 'wb') as f:
+        iw = ImageWriter()
+        EAN13(res.PRODUCT_CODE, writer=iw).write(f)
+
+    # fail test
+    '''
+    res = mng.ReadproductcodefromJSON("testFail.json")
+    strRes = res.__str__()
+    print(strRes)
+    EncodeRes = Encode(strRes)
+    print("Encoded Res " + EncodeRes)
+    DecodeRes = Decode(EncodeRes)
+    print("Decoded Res: " + DecodeRes)
+    print("Codew: " + res.PRODUCT_CODE)
+    with open("./barcodeEan13.jpg", 'wb') as f:
+        iw = ImageWriter()
+        EAN13(res.PRODUCT_CODE, writer=iw).write(f)
+    '''
+
+    # second successful test
+    res = mng.ReadproductcodefromJSON("testSuccess.json")
+    strRes = res.__str__()
+    print(strRes)
+    EncodeRes = Encode(strRes)
+    print("Encoded Res " + EncodeRes)
     DecodeRes = Decode(EncodeRes)
     print("Decoded Res: " + DecodeRes)
     print("Codew: " + res.PRODUCT_CODE)
