@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 
 
-class OrderRequest:
+class order_request:
     def __init__( self, idcode, phoneNumber ):
         self.__phoneNumber = phoneNumber
         self.__idcode = idcode

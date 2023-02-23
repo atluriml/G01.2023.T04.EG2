@@ -1,16 +1,16 @@
 import json
-from .OrderMangementException import OrderManagementException
-from .OrderRequest import OrderRequest
+from .OrderMangementException import order_management_exception
+from .OrderRequest import order_request
 
 EVEN_POS_WEIGHT = 1
 ODD_POS_WEIGHT = 3
 
-class OrderManager:
+class order_manager:
 
     def __init__(self):
         pass
 
-    def ValidateEAN13( self, eAn13 ):
+    def validate_ean13( self, eAn13 ):
 
         # confirm that the length is 13
         if len(eAn13) != 13:
@@ -22,7 +22,7 @@ class OrderManager:
         for i in range(0, len(eAn13), 1):
             if not eAn13[i].isnumeric():
                 return False
-            elif i == len(eAn13) - 1:
+            if i == len(eAn13) - 1:
                 continue
             elif i % 2 == 0: # if the position is even, the weight is 3
                 sum += (EVEN_POS_WEIGHT * int(eAn13[i]))
@@ -45,19 +45,22 @@ class OrderManager:
             with open(fi) as f:
                 DATA = json.load(f)
         except FileNotFoundError as e:
-            raise OrderManagementException("Wrong file or file path") from e
+            raise order_management_exception("Wrong file or file path") from e
         except json.JSONDecodeError as e:
-            raise OrderManagementException("JSON Decode Error - Wrong JSON Format") from e
+            raise order_management_exception\
+                ("JSON Decode Error - Wrong JSON Format") from e
 
 
         try:
             PRODUCT = DATA["id"]
             PH = DATA["phoneNumber"]
-            req = OrderRequest(PRODUCT, PH)
+            req = order_request(PRODUCT, PH)
         except KeyError as e:
-            raise OrderManagementException("JSON Decode Error - Invalid JSON Key") from e
-        if not self.ValidateEAN13(PRODUCT):
-            raise OrderManagementException("Invalid PRODUCT code")
+            raise order_management_exception\
+                ("JSON Decode Error - Invalid JSON Key") from e
+        if not self.validate_ean13(PRODUCT):
+            raise order_management_exception("Invalid PRODUCT code")
 
         # Close the file
         return req
+    
