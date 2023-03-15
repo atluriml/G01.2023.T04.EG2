@@ -9,7 +9,6 @@ class order_request:
         self.__idcode = idcode
         justnow = datetime.utcnow()
         self.__time_stamp = datetime.timestamp(justnow)
-
     def __str__(self):
         return "OrderRequest:" + json.dumps(self.__dict__)
 
@@ -28,3 +27,11 @@ class order_request:
     @product_code.setter
     def product_code( self, value ):
         self.__idcode = value
+
+    @property
+    def time_stamp( self ):
+        """ time_stamp function """
+        return self.__time_stamp
+    @time_stamp.setter
+    def time_stamp(self, value):
+        self.__time_stamp = value

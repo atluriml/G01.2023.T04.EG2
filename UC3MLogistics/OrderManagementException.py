@@ -11,5 +11,5 @@ class order_management_exception(Exception):
         return self.__message
 
     @message.setter
-    def message(self,value):
+    def message(self, value):
         self.__message = value

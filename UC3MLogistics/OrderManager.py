@@ -21,22 +21,23 @@ class order_manager:
 
         # confirm that every character is a number
         # and also calculate the check digit
-        sum = 0
+        barcode_sum = 0
         for i in range(0, len(ean13), 1):
             if not ean13[i].isnumeric():
                 return False
             if i == len(ean13) - 1:
                 continue
             if i % 2 == 0:  # if the position is even, the weight is 3
-                sum += (EVEN_POS_WEIGHT * int(ean13[i]))
+                barcode_sum += (EVEN_POS_WEIGHT * int(ean13[i]))
             else:
-                sum += (ODD_POS_WEIGHT * int(ean13[i]))
+                barcode_sum += (ODD_POS_WEIGHT * int(ean13[i]))
 
         # validate checkdigit
-        if sum % 10 == 0:
-            expected_checkdigit = (int(sum / 10) * 10) - sum
+        if barcode_sum % 10 == 0:
+            expected_checkdigit = (int(barcode_sum / 10) * 10) - barcode_sum
         else:
-            expected_checkdigit = ((int(sum / 10) + 1) * 10) - sum
+            expected_checkdigit =\
+                ((int(barcode_sum / 10) + 1) * 10) - barcode_sum
         if not expected_checkdigit == int(ean13[-1]):
             return False
 
@@ -45,7 +46,7 @@ class order_manager:
     def read_product_code_from_json(self, f_i):
         """ read_product_code_from_json function """
         try:
-            with open(f_i) as file:
+            with open(f_i, encoding="utf-8") as file:
                 data = json.load(file)
         except FileNotFoundError as error:
             raise order_management_exception("Wrong file/file path") from error
