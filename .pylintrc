@@ -515,16 +515,15 @@ ignore-imports=yes
 # Signatures are removed from the similarity computation
 ignore-signatures=yes
 
-# CHANGED CODING STANDARD
 # Minimum lines number of a similarity.
-min-similarity-lines=10
+min-similarity-lines=4
 
 
 [SPELLING]
 
 # CHANGED CODING STANDARD
 # Limits count of emitted suggestions for spelling mistakes.
-max-spelling-suggestions=10
+max-spelling-suggestions=2
 
 # Spelling dictionary name. Available dictionaries: none. To make it work,
 # install the 'python-enchant' package.
